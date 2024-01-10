@@ -26,6 +26,8 @@ dependencies = [
 
 [project.optional-dependencies]
 git = [
+"fonttools @ git+https://github.com/fonttools/fonttools",
+"ufoLib2 @ git+https://github.com/fonttools/ufoLib2",
 ]
 
 [project.urls]
@@ -35,7 +37,6 @@ Home-Page = "https://github.com/silnrsi/pysilfont"
 where = ["src"]
 
 [tool.setuptools.package-data]
-"silfont.data" = ["*.*"]
 
 [tool.bdist_wheel]
 universal = true
