@@ -22,14 +22,12 @@ requires-python = ">=3.8"
 dependencies = [
 "ufoLib2",
 "fontTools",
-"silfont",
 ]
 
 [project.optional-dependencies]
 git = [
 "fonttools @ git+https://github.com/fonttools/fonttools",
 "ufoLib2 @ git+https://github.com/fonttools/ufoLib2",
-"silfont @ git+https://github.com/silnrsi/pysilfont",
 ]
 
 [project.urls]

@@ -6,8 +6,6 @@ from feaxlib.feax_parser import feaplus_parser
 from xml.etree import ElementTree as et
 import re
 
-from silfont.core import execute
-
 def getbbox(g):
     res = (65536, 65536, -65536, -65536)
     if g['outline'] is None:
