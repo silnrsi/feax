@@ -1,9 +1,9 @@
 from fontTools.feaLib import ast
 from fontTools.feaLib.parser import Parser
 from fontTools.feaLib.lexer import IncludingLexer, Lexer
-import silfont.feax_lexer as feax_lexer
+import feaxlib.feax_lexer as feax_lexer
 from fontTools.feaLib.error import FeatureLibError
-import silfont.feax_ast as astx
+import feaxlib.feax_ast as astx
 import io, re, math, os
 import logging
 
