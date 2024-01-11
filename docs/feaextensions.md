@@ -1,6 +1,6 @@
 # FEA Extensions Current
 
-This document describes the functionality of `psfmakefea` and lists the extensions to fea that are currently supported.
+This document describes the functionality of `makefeax` and lists the extensions to fea that are currently supported.
 <!-- TOC -->
 
 - [Generated Classes](#generated-classes)
@@ -40,20 +40,20 @@ This document describes the functionality of `psfmakefea` and lists the extensio
 <!-- /TOC -->
 ## Generated Classes
 
-`psfmakefea` simplifies the hand creation of fea code by analysing the glyphs in the input font, particularly with regard to their names. Names are assumed to conform to the Adobe Glyph List conventions regarding `_` for ligatures and `.` for glyph variants.
+`makefeax` simplifies the hand creation of fea code by analysing the glyphs in the input font, particularly with regard to their names. Names are assumed to conform to the Adobe Glyph List conventions regarding `_` for ligatures and `.` for glyph variants.
 
 ### Variant glyph classes
 
-If a font contains a glyph with a final variant (there may be more than one listed for a glyph, in sequence) and also a glyph without that final variant, then `psfmakefea` will create two classes based on the variant name: @c\__variant_ contains the glyph with the variant and @cno\__variant_ contains the glyph without the variant. The two lists are aligned such that a simple classes based replacement will change all the glyphs without the variant into ones with the variant.
+If a font contains a glyph with a final variant (there may be more than one listed for a glyph, in sequence) and also a glyph without that final variant, then `makefeax` will create two classes based on the variant name: @c\__variant_ contains the glyph with the variant and @cno\__variant_ contains the glyph without the variant. The two lists are aligned such that a simple classes based replacement will change all the glyphs without the variant into ones with the variant.
 
-For example, U+025B is an open e that occurs in some African languages. Consider a font that contains the glyphs `uni025B` and `uni025B.smcp` for a small caps version of the glyph. `psfmakefea` will create two classes:
+For example, U+025B is an open e that occurs in some African languages. Consider a font that contains the glyphs `uni025B` and `uni025B.smcp` for a small caps version of the glyph. `makefeax` will create two classes:
 
 ```
 @c_smcp = [uni025B.scmp];
 @cno_smcp = [uni025B];
 ```
 
-In addition, if this font contains two other glyphs `uni025B.alt`, an alternative shape to `uni025B` and `uni025B.alt.smcp`, the small caps version of the alternate. `psfmakefea` will create the following classes:
+In addition, if this font contains two other glyphs `uni025B.alt`, an alternative shape to `uni025B` and `uni025B.alt.smcp`, the small caps version of the alternate. `makefeax` will create the following classes:
 
 ```
 @c_smcp = [uni025B.scmp uni025B.alt.smcp];
@@ -66,7 +66,7 @@ Notice that the classes with multiple glyphs, while keeping the alignment, do no
 
 ### Ligatures
 
-Unless instructed on the command line via the `-L` or `--ligmode` option, `psfmakefea` does nothing special with ligatures and treats them simply as glyphs that may take variants. There are four ligature modes. The most commonly used is `-L last`. This says to create classes based on the last components in all ligatures. Thus if the font from the previous section also included `uni025B_acutecomb` and the corresponding small caps `uni025B_acutecomb.smcp`. We also need an `acutecomb`. If the command line included `-L last`, the generated classes would be:
+Unless instructed on the command line via the `-L` or `--ligmode` option, `makefeax` does nothing special with ligatures and treats them simply as glyphs that may take variants. There are four ligature modes. The most commonly used is `-L last`. This says to create classes based on the last components in all ligatures. Thus if the font from the previous section also included `uni025B_acutecomb` and the corresponding small caps `uni025B_acutecomb.smcp`. We also need an `acutecomb`. If the command line included `-L last`, the generated classes would be:
 
 ```
 @c_smcp = [uni025B.scmp uni025B.alt.smcp uni025B_acutecomb.smcp];
@@ -159,7 +159,7 @@ It should be borne in mind that both markClasses and baseClasses can also be use
 
 The baseClass statement is a high priority need in order to facilitate auto generation of attachment point information without having to create what might be redundant lookups in the wrong order.
 
-Given a set of base glyphs with attachment point A and marks with attachment point \_A, psfmakefea will generate the following:
+Given a set of base glyphs with attachment point A and marks with attachment point \_A, makefeax will generate the following:
 
 - baseClass A - containing all bases with attachment point A
 - markClass \_A - containing all marks with attachment point \_A
