@@ -53,22 +53,23 @@ class Font(object) :
 
     def readaps(self, f, omitaps=''):
         self.fontinfo = FontInfo(f.info)
-        skipglyphs = set(f.lib.getval('public.skipExportGlyphs', []))
+        skipglyphs = set(f.lib.get('public.skipExportGlyphs', []))
         for g in f.keys():
             if g in skipglyphs:
                 continue
             ufo_g = f.get(g)
             adv = ufo_g.width
-            bbox = ufo_g.getBounds()
+            layer = f.layers['public.default']
+            bbox = ufo_g.getBounds(layer)
             glyph = Glyph(g, advance=adv, bbox=bbox)
             self.glyphs[g] = glyph
             for a in ufo_g.anchors:
-                if a.name not in omittedaps:
+                if a.name not in omitaps:
                     glyph.add_anchor(a)
                     self.all_aps.setdefault(a.name, []).append(glyph)
         self.classes = f.groups
         # repack flattened kerning
-        for k, v in self.kerning.items():
+        for k, v in f.kerning.items():
             l, r = k
             if l in self.classes:
                 l = "@" + l
@@ -102,7 +103,7 @@ class Font(object) :
                     if g+e in self.glyphs:
                         cname = c.get('name') + "_" + c.get('value')
                         self.classes.setdefault(cname, []).append(g+e)
-                    
+
     def make_classes(self, ligmode):
         for name, g in self.glyphs.items():
             # pull off suffix and make classes
@@ -263,9 +264,12 @@ def main():
     parser.add_argument("-D", "--define", action="append", help='Add option definition to pass to fea code --define=var=val')
     parser.add_argument("--classprops", action="store_true", help='Include property elements from classes file')
     parser.add_argument("--omitaps", default='', help='names of attachment points to omit (comma- or space-separated)')
+    # The next two arguments do not do anything, they are for compatibility with existing scripts.
+    parser.add_argument("-q", "--quiet", action='store_true', help='Quiet messages')
+    parser.add_argument("-l", "--log", help='Log file to use')
     args = parser.parse_args()
 
-    f = ufoLib2.Font.open(args.infile)
+    f = ufo.Font.open(args.infile)
     defines = dict(x.split('=') for x in args.define) if args.define else {}
     res = feax_get_features(f, feaxfile=args.input, omitaps=args.omitaps, defines=defines,
                             classfile=args.classfile, classprops = args.classprops, ligmode=args.ligmode)
