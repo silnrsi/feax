@@ -73,6 +73,8 @@ class Font(object) :
             l, r = k
             if l in self.classes:
                 l = "@" + l
+            if r in self.classes:
+                r = "@" + r
             self.kerns.setdefault(l, {})[r] = v
 
     def read_classes(self, fname, classproperties=False):
