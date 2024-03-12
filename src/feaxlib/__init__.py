@@ -23,11 +23,11 @@ class Glyph(object) :
         self.name = name
         self.anchors = {}
         self.is_mark = False
-        self.advance = int(float(advance))
+        self.advance = int(advance)
         self.bbox = bbox or (0, 0, 0, 0)
 
     def add_anchor(self, anchor):
-        self.anchors[anchor.name] = (anchor.x, anchor.y)
+        self.anchors[anchor.name] = (int(anchor.x), int(anchor.y))
 
     def decide_if_mark(self) :
         for a in self.anchors.keys():
