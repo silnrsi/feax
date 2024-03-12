@@ -42,6 +42,9 @@ class FontInfo:
     def __getitem__(self, key):
         return getattr(self.base, key, None)
 
+    def get(self, key, default):
+        return getattr(self.base, key, default)
+
 class Font(object) :
     def __init__(self, defines = None):
         self.glyphs = OrderedDict()

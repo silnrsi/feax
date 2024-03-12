@@ -64,7 +64,7 @@ class feaplus_parser(Parser) :
             'feaclass': lambda c: self.resolve_glyphclass(c).glyphSet(),
             'allglyphs': lambda : self.glyphs.keys(),
             'lf': lambda : "\n",
-            'info': lambda s: getattr(self.fontinfo, s, ""),
+            'info': lambda s: self.fontinfo.get(s, ""),
             'fileexists': lambda s: os.path.exists(s),
             'kerninfo': lambda s:[(k1, k2, v) for k1, x in self.kerninfo.items() for k2, v in x.items()],
             'opt': lambda s: self.defines.get(s, "")
@@ -450,7 +450,7 @@ class feaplus_parser(Parser) :
         reg = self.expect_string_()
         self.expect_symbol_(")")
         def ifInfoTest():
-            s = getattr(self.fontinfo, name, "")
+            s = self.fontinfo.get(name, "")
             return re.search(reg, s)
         block = self.ast.IfBlock(ifInfoTest, 'ifinfo', '{}, "{}"'.format(name, reg), location=location)
         import inspect      # oh this is so ugly! Instead caller should pass in context
