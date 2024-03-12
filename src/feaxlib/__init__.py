@@ -53,6 +53,7 @@ class Font(object) :
 
     def readaps(self, f, omitaps=''):
         self.fontinfo = FontInfo(f.info)
+        omittedaps = set(omitaps.replace(',',' ').split())  # allow comma- and/or space-separated list
         skipglyphs = set(f.lib.get('public.skipExportGlyphs', []))
         for g in f.keys():
             if g in skipglyphs:
@@ -64,7 +65,7 @@ class Font(object) :
             glyph = Glyph(g, advance=adv, bbox=bbox)
             self.glyphs[g] = glyph
             for a in ufo_g.anchors:
-                if a.name not in omitaps:
+                if a.name not in omittedaps:
                     glyph.add_anchor(a)
                     self.all_aps.setdefault(a.name, []).append(glyph)
         self.classes = f.groups
