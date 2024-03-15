@@ -46,25 +46,42 @@ class FontInfo:
         return getattr(self.base, key, default)
 
 class Font(object) :
-    def __init__(self, defines = None):
+    def __init__(self, defines = None, psfCompatible = False):
         self.glyphs = OrderedDict()
         self.classes = OrderedDict()
         self.all_aps = OrderedDict()
         self.fontinfo = {}
         self.kerns = {}
         self.defines = {} if defines is None else defines
+        self.psfCompatible = psfCompatible
 
     def readaps(self, f, omitaps=''):
         self.fontinfo = FontInfo(f.info)
         omittedaps = set(omitaps.replace(',',' ').split())  # allow comma- and/or space-separated list
         skipglyphs = set(f.lib.get('public.skipExportGlyphs', []))
+        # import pdb; pdb.set_trace()
         for g in f.keys():
             if g in skipglyphs:
                 continue
             ufo_g = f.get(g)
             adv = ufo_g.width
             layer = f.layers['public.default']
-            bbox = ufo_g.getBounds(layer)
+            # get glyph bounding
+            if self.psfCompatible:
+                # Implement [faulty] pysilfont-compatible algorithm by looking only at contours
+                if len(ufo_g):
+                    bbox = (65536, 65536, -65536, -65536)
+                    for c in ufo_g.contours:
+                        for p in c.points:
+                            if p.type:      # any on-curve point counts
+                                x = float(p.x)
+                                y = float(p.y)
+                                bbox = (min(x, bbox[0]), min(y, bbox[1]), max(x, bbox[2]), max(y, bbox[3]))
+                else:
+                    bbox = (0, 0, 0, 0)
+            else:
+                # Use the preferred ufoLib2 method
+                bbox = ufo_g.getBounds(layer)
             glyph = Glyph(g, advance=adv, bbox=bbox)
             self.glyphs[g] = glyph
             for a in ufo_g.anchors:
@@ -270,6 +287,7 @@ def main():
     parser.add_argument("-D", "--define", action="append", help='Add option definition to pass to fea code --define=var=val')
     parser.add_argument("--classprops", action="store_true", help='Include property elements from classes file')
     parser.add_argument("--omitaps", default='', help='names of attachment points to omit (comma- or space-separated)')
+    parser.add_argument("--psfCompatible", action='store_true', help='Compute glyph bounding boxes compatibly with psfmakefea')
     # The next two arguments do not do anything, they are for compatibility with existing scripts.
     parser.add_argument("-q", "--quiet", action='store_true', help='Quiet messages')
     parser.add_argument("-l", "--log", help='Log file to use')
@@ -278,14 +296,15 @@ def main():
     f = ufo.Font.open(args.infile)
     defines = dict(x.split('=') for x in args.define) if args.define else {}
     res = feax_get_features(f, feaxfile=args.input, omitaps=args.omitaps, defines=defines,
-                            classfile=args.classfile, classprops = args.classprops, ligmode=args.ligmode)
+                            classfile=args.classfile, classprops = args.classprops, ligmode=args.ligmode, 
+                            psfCompatible = args.psfCompatible)
     if args.output :
         with open(args.output, "w") as of :
             of.write(res)
 
 
-def feax_get_features(font, feaxfile=None, omitaps='', defines={}, classfile=None, classprops=False, ligmode=None):
-    feafont = Font(defines)
+def feax_get_features(font, feaxfile=None, omitaps='', defines={}, classfile=None, classprops=False, ligmode=None, psfCompatible=False):
+    feafont = Font(defines, psfCompatible)
     feafont.readaps(font, omitaps)
     feafont.make_marks()
     feafont.make_classes(ligmode)
