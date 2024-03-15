@@ -21,7 +21,7 @@ Get inside the virtual environment, you have to do this every time you want to u
 source venv/bin/activate
 ```
 
-Then install (update) the toolchain and install the library and the makefeax script:
+Then install (update) the toolchain and install the library and the makefea script:
 ```
 python3 -m pip install --upgrade pip setuptools wheel
 python3 -m pip install .
@@ -50,12 +50,12 @@ python3 -m pip install --upgrade -e .[git]
 ## Running the script
 
 ```
-makefeax 
+makefea 
 ```
 
 Usage:
 
 ```
-makefeax -h (or --help)
+makefea -h (or --help)
 ```
 

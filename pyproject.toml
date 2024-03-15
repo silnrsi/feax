@@ -42,4 +42,4 @@ where = ["src"]
 universal = true
 
 [project.scripts]
-makefeax = "feaxlib:main"
+makefea = "feaxlib:main"

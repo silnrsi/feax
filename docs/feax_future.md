@@ -7,7 +7,7 @@ added to FEA. Notice that any extensions need to be convertible back to normal F
 so shouldn't do things that can't be expressed in FEA.
 
 As things get implemented from here, they will be moved to feaextensions.md. There
-are no guaranteees that what is in here, will end up in makefeax.
+are no guaranteees that what is in here, will end up in makefea.
 The various features listed here are given priorities:
 
 | Level | Priority
