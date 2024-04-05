@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import ufoLib2 as ufo
+import ufoLib2
 from collections import OrderedDict
 from feaxlib.feax_parser import feaplus_parser
 from xml.etree import ElementTree as et
@@ -289,14 +289,14 @@ def main():
     parser.add_argument("--omitaps", default='', help='names of attachment points to omit (comma- or space-separated)')
     parser.add_argument("--psfCompatible", action='store_true', help='Compute glyph bounding boxes compatibly with psfmakefea')
     # The next two arguments do not do anything, they are for compatibility with existing scripts.
-    parser.add_argument("-q", "--quiet", action='store_true', help='Quiet messages')
-    parser.add_argument("-l", "--log", help='Log file to use')
+    parser.add_argument("-q", "--quiet", action='store_true', help='Ignored, provides compatibility for psfmakefea')
+    parser.add_argument("-l", "--log", help='Ignored, provides compatibility for psfmakefea')
     args = parser.parse_args()
 
-    f = ufo.Font.open(args.infile)
+    f = ufoLib2.Font.open(args.infile)
     defines = dict(x.split('=') for x in args.define) if args.define else {}
     res = feax_get_features(f, feaxfile=args.input, omitaps=args.omitaps, defines=defines,
-                            classfile=args.classfile, classprops = args.classprops, ligmode=args.ligmode, 
+                            classfile=args.classfile, classprops = args.classprops, ligmode=args.ligmode,
                             psfCompatible = args.psfCompatible)
     if args.output :
         with open(args.output, "w") as of :
