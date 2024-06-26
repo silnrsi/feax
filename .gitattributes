@@ -1,0 +1,14 @@
+# The following causes git to auto detect text files which will have eol
+# conversion applied according to core.autocrlf and core.eol
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.py text
+
+# Explicitly declare the below matches to be text files, to keep LF eols when
+# writing to the working copy, and to convert CRLF to LF eols when adding to the repo.
+*.feax text eol=lf
+*.fea text eol=lf
+*.glif text eol=lf
+*.plist text eol=lf
