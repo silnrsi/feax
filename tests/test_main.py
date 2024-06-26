@@ -52,6 +52,7 @@ class UnikeyTests(unittest.TestCase):
         assert actual == expected
 
     def test_kashidaB(self):
+        self.font.close()
         self.font = ufoLib2.Font.open('../font-psf-test/source/PsfTest-Bold.ufo')
         expected, actual = self.helper_features('kashidaB', 'kashida')
         assert actual == expected

@@ -212,3 +212,5 @@ feature alt {
     sub A from [A.x A.y];
     sub a from [a.x a.y];
 } alt;
+
+# Previous filename: psfmakefea.fea[x]

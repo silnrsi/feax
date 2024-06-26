@@ -5,3 +5,4 @@
 feature alt {
     sub @base from [@basex @basey];
 } alt;
+# Previous filename: psfmakefea.fea[x]
