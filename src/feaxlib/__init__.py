@@ -6,18 +6,6 @@ from feaxlib.feax_parser import feaplus_parser
 from xml.etree import ElementTree as et
 import re
 
-def getbbox(g):
-    res = (65536, 65536, -65536, -65536)
-    if g['outline'] is None:
-        return (0, 0, 0, 0)
-    for c in g['outline'].contours:
-        for p in c['point']:
-            if 'type' in p.attrib:      # any actual point counts
-                x = float(p.get('x', '0'))
-                y = float(p.get('y', '0'))
-                res = (min(x, res[0]), min(y, res[1]), max(x, res[2]), max(y, res[3]))
-    return res
-
 class Glyph(object) :
     def __init__(self, name, advance=0, bbox=None):
         self.name = name
