@@ -5,6 +5,7 @@ from collections import OrderedDict
 from feaxlib.feax_parser import feaplus_parser
 from xml.etree import ElementTree as et
 import re
+from itertools import chain
 
 class Glyph(object) :
     def __init__(self, name, advance=0, bbox=None):
@@ -46,7 +47,7 @@ class Font(object) :
     def readaps(self, f, omitaps='', ignoreglyphsRE=None):
         self.fontinfo = FontInfo(f.info)
         omittedaps = set(omitaps.replace(',',' ').split())  # allow comma- and/or space-separated list
-        skipglyphs = set(f.lib.get('public.skipExportGlyphs', []))
+        skipglyphs = set(chain(f.lib.get('public.skipExportGlyphs', []), f.lib.get('org.sil.componentOnlyGlyphs',[])))
         # import pdb; pdb.set_trace()
         for g in f.keys():
             if g in skipglyphs or (ignoreglyphsRE and ignoreglyphsRE.search(g)):
