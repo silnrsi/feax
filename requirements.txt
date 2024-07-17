@@ -1,2 +1,0 @@
-ufoLib2
-fontTools
