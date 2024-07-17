@@ -1,8 +1,8 @@
 # feax
 Preprocessor for feax OpenType code
 
-Feax is a set of extensions to provide easier and more powerful ways to write fea code. 
-For the specification of the feax language see the docs/ folder. 
+Feax is a set of extensions to provide easier and more powerful ways to write fea code.
+For the specification of the feax language see [docs/feaextensions.md](docs/feaextensions.md). For plans about the future see [docs/feax_future.md](docs/feax_future.md).
 
 ## Installation steps
 
@@ -12,16 +12,16 @@ Update the basic toolchain (on Debian/Ubuntu/WSL2):
 sudo apt install python3-pip python3-venv python3-wheel python3-setuptools
 ```
 
-create a virtual environment:
+Create a virtual environment:
 ```
 python3 -m venv venv
 ```
-Get inside the virtual environment, you have to do this every time you want to use the pysilfont tools again:
+Get inside the virtual environment (you have to do this every time you want to use the tools again):
 ```
 source venv/bin/activate
 ```
 
-Then install (update) the toolchain and install the library and the makefea script:
+Then install (update) the toolchain and install the feax library and the makefea script:
 ```
 python3 -m pip install --upgrade pip setuptools wheel
 python3 -m pip install .
@@ -50,7 +50,7 @@ python3 -m pip install --upgrade -e .[git]
 ## Running the script
 
 ```
-makefea 
+makefea
 ```
 
 Usage:
@@ -58,4 +58,3 @@ Usage:
 ```
 makefea -h (or --help)
 ```
-
