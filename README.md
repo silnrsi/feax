@@ -6,17 +6,21 @@ For the specification of the feax language see [docs/feaextensions.md](docs/feae
 
 ## Installation steps
 
-### Install in a virtual environment (venv)
-Update the basic toolchain (on Debian/Ubuntu/WSL2):
+If you do not already have the repository checked out, download the source code:
+
 ```
-sudo apt install python3-pip python3-venv python3-wheel python3-setuptools
+git clone https://github.com/silnrsi/feax.git
+cd feax
 ```
 
-Create a virtual environment:
+
+### Install in a virtual environment (venv)
+
+Create a virtual environment (this works the same in Ubuntu/WSL2/macOS):
 ```
 python3 -m venv venv
 ```
-Get inside the virtual environment (you have to do this every time you want to use the tools again):
+Get inside the virtual environment (venv) (you have to do this every time you want to use the tools again):
 ```
 source venv/bin/activate
 ```
