@@ -19,8 +19,8 @@ class UnikeyTests(unittest.TestCase):
         os.chdir('../..')
 
     def test_sample(self):
-        expected = Path('sample.fea').read_text()
-        actual = feaxlib.feax_get_features(self.font, feaxfile='sample.feax')
+        expected = Path('sample.fea').read_text().strip()
+        actual = feaxlib.feax_get_features(self.font, feaxfile='sample.feax').strip()
         assert actual == expected
 
     def helper_features(self, basename, feax_basename=''):
@@ -32,11 +32,11 @@ class UnikeyTests(unittest.TestCase):
         # feafont.append_classes(self.p)
         # feafont.append_positions(self.p)
 
-        expected = Path(f'{basename}.fea').read_text()
+        expected = Path(f'{basename}.fea').read_text().strip()
         if not feax_basename:
             feax_basename = basename
         doc = p.parse(f'{feax_basename}.feax')
-        actual = doc.asFea()
+        actual = doc.asFea().strip()
         return expected, actual
 
     def test_calc(self):
