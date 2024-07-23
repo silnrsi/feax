@@ -4,8 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "feaxlib"
-version = "0.9"
-# (also manually bump version in src/feaxlib/__init__.py)
+version = "0.9.1"
 authors = [{name = "SIL International", email = "fonts@sil.org"}]
 readme = "README.md"
 license = {file = "LICENSE"}
