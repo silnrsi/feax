@@ -4,36 +4,29 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "feaxlib"
-version = "0.9.1"
+version = "0.3"
 authors = [{name = "SIL International", email = "fonts@sil.org"}]
 readme = "README.md"
 license = {file = "LICENSE"}
-description = "FEAX processing library"
+description = "DBL processing support"
 classifiers = [
    "Environment :: Console",
    "Programming Language :: Python :: 3.8",
    "Intended Audience :: Developers",
    "License :: OSI Approved :: MIT License",
-   "Topic :: Text Processing :: Fonts"
+   "Topic :: Text Processing :: Bible"
    ]
 requires-python = ">=3.8"
 
 dependencies = [
-"ufoLib2",
-"fontTools",
 ]
 
 [project.optional-dependencies]
 git = [
-"fonttools @ git+https://github.com/fonttools/fonttools",
-"ufoLib2 @ git+https://github.com/fonttools/ufoLib2",
 ]
 
-[project.urls]
-Home-Page = "https://github.com/silnrsi/feax"
-
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]
 
 [tool.setuptools.package-data]
 
