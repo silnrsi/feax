@@ -1,0 +1,14 @@
+@base = [A B C];
+@left = [a b c];
+@right = [one two three];
+
+lookup test {
+do  forlet i = range(len(feaclass('base')));
+    let b = feaclass('base')[i];
+    let l = feaclass('left')[i];
+    let r = feaclass('right')[i];
+    {
+    sub $b by $l $r;
+    }
+} test;
+

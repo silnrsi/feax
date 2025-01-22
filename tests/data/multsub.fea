@@ -1,0 +1,9 @@
+@base = [A B C];
+@left = [a b c];
+@right = [one two three];
+lookup test {
+            sub A by a one;
+        sub B by b two;
+        sub C by c three;
+
+} test;

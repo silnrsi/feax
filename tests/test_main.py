@@ -61,6 +61,10 @@ class UnikeyTests(unittest.TestCase):
         expected, actual = self.helper_features('ligatures')
         assert actual == expected
 
+    def test_multsub(self):
+        expected, actual = self.helper_features('multsub')
+        assert actual == expected
+
 
 if __name__ == '__main__':
     unittest.main()
