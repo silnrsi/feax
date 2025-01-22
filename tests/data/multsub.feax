@@ -3,8 +3,7 @@
 @right = [one two three];
 
 lookup test {
-do  forlet i = range(len(feaclass('base')));
-    let b = feaclass('base')[i];
+do  forlet i,b = enumerate(feaclass('base'));
     let l = feaclass('left')[i];
     let r = feaclass('right')[i];
     {
