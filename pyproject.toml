@@ -8,13 +8,13 @@ version = "0.3"
 authors = [{name = "SIL International", email = "fonts@sil.org"}]
 readme = "README.md"
 license = {file = "LICENSE"}
-description = "DBL processing support"
+description = "Extended fea conversion"
 classifiers = [
    "Environment :: Console",
    "Programming Language :: Python :: 3.8",
    "Intended Audience :: Developers",
    "License :: OSI Approved :: MIT License",
-   "Topic :: Text Processing :: Bible"
+   "Topic :: Text Processing :: Fonts"
    ]
 requires-python = ">=3.8"
 
