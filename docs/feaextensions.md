@@ -414,6 +414,22 @@ do  for r = @rights;
     }
 ```
 
+#### Indexed substitution using a different slot in the stream
+
+Sometimes it is necessary to perform a substution in one slot in the stream based on a different slot. In this case case we want to replace members of class @A with corresponding members of @A1 @A2, where @A2 is indexed identically to @A1.
+
+```
+lookup splitA {
+do  forlet i,a = enumerate(feaclass('A'));
+    let a1 = feaclass('A1')[i];
+    let a2 = feaclass('A2')[i];
+    {
+        sub @A by $a1 $a2;
+    }
+} splitA;
+
+```
+
 ##### Myanmar Great Ya
 
 One obscure situation is the Great Ya (U+103C) in the Myanmar script, that visual wraps around the following base glyph. The great ya is given a small advance to then position the following consonant glyph within it. The advance of this consonant needs to be enough to place the next character outside the great ya. So we create an A attachment point on the great ya to emulate this intended final advance. Note that there are many variants of the great ya glyph. Thus:
