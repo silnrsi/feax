@@ -1,6 +1,7 @@
 @base = [A B C];
 @left = [a b c];
 @right = [one two three];
+@all = [@base @left @right];
 
 lookup test {
 do  forlet i,b = enumerate(feaclass('base'));
@@ -10,4 +11,8 @@ do  forlet i,b = enumerate(feaclass('base'));
     sub $b by $l $r;
     }
 } test;
+
+lookup test1 {
+    sub @all @right by @all;
+} test1;
 
