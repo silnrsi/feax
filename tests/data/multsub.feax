@@ -16,3 +16,21 @@ lookup test1 {
     sub @all @right by @all;
 } test1;
 
+@A = [ga1 ga2 ga3];
+@Az = [gaz1 gaz2 gaz3];
+@B = [gb1 gb2];
+@Bz = [gbz1 gbz2];
+@C = [gc1 gc2 gc3];
+@Cz = [gcz1 gcz2 gcz3];
+
+@P = [@A @B];
+@Pz = [@Az @Bz];
+@Q = [@C];
+@R = [gr1 gr2 gr3];
+
+@X = [@P @Q];
+@Xz = [@Pz @R];
+
+lookup test2 {
+    sub @X @all  by  @Xz;
+} test2;
